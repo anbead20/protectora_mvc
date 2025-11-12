@@ -9,4 +9,10 @@ abstract class DAbstractModel
     private static $db_pass = 'DB_PASS';
     private static $db_name = 'DB_NAME';
     private static $db_port = 'DB_PORT';
+
+    private static $conection = null;
+
+    protected $message = "";
+    protected $query;
+    protected $params = [];
 }
