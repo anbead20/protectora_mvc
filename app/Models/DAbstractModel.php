@@ -15,4 +15,11 @@ abstract class DAbstractModel
     protected $message = "";
     protected $query;
     protected $params = [];
+    protected $rows = [];
+    protected $afected_rows = 0;
+
+    abstract protected function get($id = "");
+    abstract protected function set();
+    abstract protected function edit();
+    abstract protected function delete($id = "");
 }
