@@ -1,0 +1,5 @@
+# Ignorar archivo de configuración de entorno
+.env
+
+# Ignorar la carpeta de dependencias externas
+vendor/
