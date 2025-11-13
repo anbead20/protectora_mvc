@@ -19,7 +19,7 @@ abstract class DAbstractModel
     protected $message = '';
     protected $query;
     protected $params = [];
-    protected $row = [];
+    protected $rows = [];
     protected $affected_rows = 0;
 
     // Métodos abstractos que deben implementar las clases hijas
@@ -57,5 +57,77 @@ abstract class DAbstractModel
             throw $th;
         }
         return $pdo;
+    }
+    protected function execute_single_query()
+    {
+        try {
+            $conn = $this->getConnection();
+            $stmt = $conn->prepare($this->query);
+            $stmt->execute($this->params);
+            $this->affected_rows = $stmt->rowsCount();
+        } catch (\PDOException $th) {
+            $this->error = true;
+            $this->message = $th->getMessage();
+        }
+    }
+    protected function get_results_from_query()
+    {
+        try {
+            $conn = $this->getConnection();
+            $stmt = $conn->prepare($this->query);
+            $stmt->execute($this->params);
+            $this->rows = $stmt->fetchAll();
+            $this->affected_rows = $stmt->rowsCount();
+        } catch (\PDOException $th) {
+            $this->error = true;
+            $this->message = $th->getMessage();
+        }
+    }
+    protected function get_single_result()
+    {
+        $this->get_results_from_query();
+        return $this->rowss[0] ?? null;
+    }
+
+    public function beginTransaction()
+    {
+        return $this->getConnection()->beginTransaction();
+    }
+
+    public function commit()
+    {
+        return $this->getConnection()->commit();
+    }
+
+    public function rollBack()
+    {
+        return $this->getConnection()->rollBack();
+    }
+
+    public function getrowss()
+    {
+        return $this->rows;
+    }
+
+    public function getAffectedrowss()
+    {
+        return $this->affected_rows;
+    }
+
+    public function getMensage()
+    {
+        return $this->message;
+    }
+
+    protected function clearParameters()
+    {
+        $this->params = [];
+        $this->query = '';
+        $this->rows = [];
+        $this->affected_rows = 0;
+    }
+    public static function closeConnection()
+    {
+        self::$connection = null;
     }
 }
