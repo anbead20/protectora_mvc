@@ -46,7 +46,6 @@ abstract class DAbstractModel
             self::$db_port,
             self::$db_name
         );
-
         try {
             $pdo = new \PDO($dsn, self::$db_user, self::$db_pass);
             $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
@@ -57,7 +56,6 @@ abstract class DAbstractModel
             $this->message = $th->getMessage();
             throw $th;
         }
-
         return $pdo;
     }
 }
