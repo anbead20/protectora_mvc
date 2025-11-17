@@ -5,11 +5,11 @@ namespace App\Models;
 abstract class DAbstractModel
 {
     // Configuración de la base de datos (asegúrate de tener estas constantes definidas)
-    private static $db_host = "DBHOST";
-    private static $db_user = "DBUSER";
-    private static $db_pass = "DBPASS";
-    private static $db_name = "DBNAME";
-    private static $db_port = "DBPORT";
+    private static $db_host = DBHOST;
+    private static $db_user = DBUSER;
+    private static $db_pass = DBPASS;
+    private static $db_name = DBNAME;
+    private static $db_port = DBPORT;
 
     // Conexión singleton
     private static $connection = null;
@@ -58,18 +58,20 @@ abstract class DAbstractModel
         }
         return $pdo;
     }
+
     protected function execute_single_query()
     {
         try {
             $conn = $this->getConnection();
             $stmt = $conn->prepare($this->query);
             $stmt->execute($this->params);
-            $this->affected_rows = $stmt->rowsCount();
+            $this->affected_rows = $stmt->rowCount();
         } catch (\PDOException $th) {
             $this->error = true;
             $this->message = $th->getMessage();
         }
     }
+
     protected function get_results_from_query()
     {
         try {
@@ -77,16 +79,17 @@ abstract class DAbstractModel
             $stmt = $conn->prepare($this->query);
             $stmt->execute($this->params);
             $this->rows = $stmt->fetchAll();
-            $this->affected_rows = $stmt->rowsCount();
+            $this->affected_rows = $stmt->rowCount();
         } catch (\PDOException $th) {
             $this->error = true;
             $this->message = $th->getMessage();
         }
     }
+
     protected function get_single_result()
     {
         $this->get_results_from_query();
-        return $this->rowss[0] ?? null;
+        return $this->rows[0] ?? null;
     }
 
     public function beginTransaction()

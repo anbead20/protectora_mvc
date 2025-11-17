@@ -7,7 +7,7 @@ class AnimalModel extends DAbstractModel
     private $id;
     private $nombre;
     private $raza;
-    private $fecha;
+    private $fechaNacimiento;
 
     public function getId()
     {
@@ -41,20 +41,20 @@ class AnimalModel extends DAbstractModel
 
     public function getFecha()
     {
-        return $this->fecha;
+        return $this->fechaNacimiento;
     }
 
-    public function setFecha($fecha)
+    public function setFecha($fechaNacimiento)
     {
-        $this->fecha = $fecha;
+        $this->fechaNacimiento = $fechaNacimiento;
     }
 
-    protected function get($id = '')
+    public function get($id = '')
     {
         try {
-            $this->query = "SELECT * FROM animales" . ($id ? " WHERE id = :id" : "");
+            $this->query = "SELECT * FROM mascotas" . ($id ? " WHERE id = :id" : "");
             $this->params = $id ? [':id' => $id] : [];
-            $this->execute_single_query();
+            $this->get_results_from_query(); // <<--- Esto llena $this->rows
             return $this->rows;
         } catch (\PDOException $th) {
             $this->error = true;
@@ -63,16 +63,22 @@ class AnimalModel extends DAbstractModel
         }
     }
 
-    protected function set()
+    public function set()
     {
         try {
-            $this->query = "INSERT INTO animales (nombre, raza, fecha) VALUES (:nombre, :raza, :fecha)";
+            $this->query = "INSERT INTO mascotas (nombre, raza, fechaNacimiento) VALUES (:nombre, :raza, :fechaNacimiento)";
             $this->params = [
                 ':nombre' => $this->nombre,
-                ':raza' => $this->raza,
-                ':fecha' => $this->fecha
+                ':raza'   => $this->raza,
+                ':fechaNacimiento'  => $this->fechaNacimiento ?: date('Y-m-d') // Si no se ha definido fecha, se asigna la fecha actual
             ];
+
             $this->execute_single_query();
+
+            // Guardamos el ID recién insertado
+            $this->id = $this->getConnection()->lastInsertId();
+
+            return $this->id; // Devuelve el ID insertado
         } catch (\PDOException $th) {
             $this->error = true;
             $this->message = $th->getMessage();
@@ -80,12 +86,29 @@ class AnimalModel extends DAbstractModel
         }
     }
 
-    protected function delete($id = '')
+    public function edit()
     {
         try {
-            $this->query = "DELETE FROM animales WHERE id = :id";
-            $this->params = [':id' => $id];
+            if (empty($this->id)) {
+                throw new \Exception("Se requiere un ID para modificar el registro");
+            }
+
+            // Si no se ha definido fecha, se asigna la fecha actual
+            if (empty($this->fechaNacimiento)) {
+                $this->fechaNacimiento = date('Y-m-d');
+            }
+
+            $this->query = "UPDATE mascotas SET nombre = :nombre, raza = :raza, fechaNacimiento = :fechaNacimiento WHERE id = :id";
+            $this->params = [
+                ':nombre' => $this->nombre,
+                ':raza'   => $this->raza,
+                ':fechaNacimiento'  => $this->fechaNacimiento,
+                ':id'     => $this->id
+            ];
+
             $this->execute_single_query();
+
+            return $this->affected_rows; // Devuelve el número de filas afectadas
         } catch (\PDOException $th) {
             $this->error = true;
             $this->message = $th->getMessage();
@@ -93,17 +116,21 @@ class AnimalModel extends DAbstractModel
         }
     }
 
-    protected function edit()
+    public function delete($id = '')
     {
         try {
-            $this->query = "UPDATE animales SET nombre = :nombre, raza = :raza, fecha = :fecha WHERE id = :id";
-            $this->params = [
-                ':nombre' => $this->nombre,
-                ':raza' => $this->raza,
-                ':fecha' => $this->fecha,
-                ':id' => $this->id
-            ];
+            $deleteId = $id ?: $this->id; // Permite pasar el ID o usar $this->id
+
+            if (empty($deleteId)) {
+                throw new \Exception("Se requiere un ID para eliminar el registro");
+            }
+
+            $this->query = "DELETE FROM mascotas WHERE id = :id";
+            $this->params = [':id' => $deleteId];
+
             $this->execute_single_query();
+
+            return $this->affected_rows; // Devuelve el número de filas eliminadas
         } catch (\PDOException $th) {
             $this->error = true;
             $this->message = $th->getMessage();
