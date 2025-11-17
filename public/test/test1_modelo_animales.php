@@ -2,11 +2,11 @@
 
 require_once '../../vendor/autoload.php';
 
-define('DBHOST', 'localhost');
-define('DBNAME', 'mascotas');
-define('DBUSER', 'mascotas');
-define('DBPASS', 'mascotas');
-define('DBPORT', '3306');
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'mascotas');
+define('DB_USER', 'mascotas');
+define('DB_PASS', 'mascotas');
+define('DB_PORT', '3306');
 
 use App\Models\AnimalModel;
 

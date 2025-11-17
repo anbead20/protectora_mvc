@@ -5,11 +5,11 @@ namespace App\Models;
 abstract class DAbstractModel
 {
     // Configuración de la base de datos (asegúrate de tener estas constantes definidas)
-    private static $db_host = DBHOST;
-    private static $db_user = DBUSER;
-    private static $db_pass = DBPASS;
-    private static $db_name = DBNAME;
-    private static $db_port = DBPORT;
+    private static $db_host = DB_HOST;
+    private static $db_user = DB_USER;
+    private static $db_pass = DB_PASS;
+    private static $db_name = DB_NAME;
+    private static $db_port = DB_PORT;
 
     // Conexión singleton
     private static $connection = null;
