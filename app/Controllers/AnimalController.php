@@ -17,9 +17,14 @@ class AnimalController extends BaseController
     public function IndexAction()
     {
         $animals = $this->animalService->getAllAnimals();
+
+        // Definimos $data como variable local
         $data = ['animals' => $animals];
-        $this->renderHTML('../view/animal_index_view.php', $data);
+
+        // Incluimos la vista (BaseController no hace extract)
+        $this->renderHTML(__DIR__ . '/../../view/index_view.php', $data);
     }
+
 
     // Acción para mostrar un animal por ID
     public function ShowAction($request)
@@ -28,17 +33,23 @@ class AnimalController extends BaseController
         $id = end($partes);
 
         $animal = $this->animalService->getAnimalById((int)$id);
-        $data = ['animal' => $animal];
-        $this->renderHTML('../view/animal_show_view.php', $data);
+
+        $this->renderHTML(__DIR__ . '/../../view/index_view.php', [
+            'data' => ['animals' => [$animal]]
+        ]);
     }
 
     // Acción para crear un nuevo animal
     public function CreateAction($request)
     {
-        // Aquí suponemos que $request es un array con los datos
         $animal = $this->animalService->createAnimal($request);
-        $data = ['animal' => $animal, 'message' => 'Animal creado correctamente'];
-        $this->renderHTML('../view/animal_create_view.php', $data);
+
+        $this->renderHTML(__DIR__ . '/../../view/index_view.php', [
+            'data' => [
+                'animals' => [$animal],
+                'message' => 'Animal creado correctamente'
+            ]
+        ]);
     }
 
     // Acción para actualizar un animal
@@ -48,8 +59,13 @@ class AnimalController extends BaseController
         $id = end($partes);
 
         $animal = $this->animalService->updateAnimal((int)$id, $request['data']);
-        $data = ['animal' => $animal, 'message' => 'Animal actualizado correctamente'];
-        $this->renderHTML('../view/animal_update_view.php', $data);
+
+        $this->renderHTML(__DIR__ . '/../../view/index_view.php', [
+            'data' => [
+                'animals' => [$animal],
+                'message' => 'Animal actualizado correctamente'
+            ]
+        ]);
     }
 
     // Acción para eliminar un animal
@@ -60,7 +76,12 @@ class AnimalController extends BaseController
 
         $deleted = $this->animalService->deleteAnimal((int)$id);
         $message = $deleted ? 'Animal eliminado correctamente' : 'Animal no encontrado';
-        $data = ['message' => $message];
-        $this->renderHTML('../view/animal_delete_view.php', $data);
+
+        $this->renderHTML(__DIR__ . '/../../view/index_view.php', [
+            'data' => [
+                'animals' => [],
+                'message' => $message
+            ]
+        ]);
     }
 }

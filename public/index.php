@@ -1,5 +1,5 @@
 <?php
-
+require_once __DIR__ . '/../app/bootstrap.php';
 require_once("../vendor/autoload.php");
 require_once("../app/Config/config.php");
 
@@ -8,58 +8,40 @@ use App\Controllers\AnimalController;
 use App\Services\AnimalService;
 use App\Models\AnimalModel;
 
-// Creamos el enrutador
 $router = new Router();
 
-// Definimos rutas
+// rutas
 $router->add([
-    'name'   => 'animal_index',
-    'path'   => '/^\/animales$/',
+    'name'   => 'animal_index_default',
+    'path'   => '/^\/?$/',   // raíz
     'action' => [AnimalController::class, 'IndexAction']
 ]);
 
 $router->add([
-    'name'   => 'animal_show',
-    'path'   => '/^\/animal\/([0-9]+)$/',
-    'action' => [AnimalController::class, 'ShowAction']
+    'name'   => 'animal_index',
+    'path'   => '/^\/animales\/?$/',
+    'action' => [AnimalController::class, 'IndexAction']
 ]);
 
-$router->add([
-    'name'   => 'animal_create',
-    'path'   => '/^\/animal\/crear$/',
-    'action' => [AnimalController::class, 'CreateAction']
-]);
+// aquí definimos $uri y $request
+$uri     = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$request = str_replace(DIRBASEURL, '', $uri);
 
-$router->add([
-    'name'   => 'animal_update',
-    'path'   => '/^\/animal\/editar\/([0-9]+)$/',
-    'action' => [AnimalController::class, 'UpdateAction']
-]);
-
-$router->add([
-    'name'   => 'animal_delete',
-    'path'   => '/^\/animal\/eliminar\/([0-9]+)$/',
-    'action' => [AnimalController::class, 'DeleteAction']
-]);
-
-// Obtenemos la ruta de la petición
-$baseUrl = defined('DIRBASEURL') ? DIRBASEURL : '';
-$request = str_replace($baseUrl, '', $_SERVER['REQUEST_URI']);
-
-// Buscamos coincidencia
 $route = $router->match($request);
 
 if ($route) {
     $controllerName = $route['action'][0];
     $actionName     = $route['action'][1];
 
-    // Inyectamos el servicio en AnimalController
     $animalModel   = new AnimalModel();
     $animalService = new AnimalService($animalModel);
     $controller    = new $controllerName($animalService);
 
-    // Ejecutamos la acción
-    $controller->$actionName($request);
+    if ($actionName === 'IndexAction') {
+        $controller->IndexAction();
+    } else {
+        $controller->$actionName($request);
+    }
 } else {
     echo "No route";
 }
