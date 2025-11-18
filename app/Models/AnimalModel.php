@@ -137,4 +137,23 @@ class AnimalModel extends DAbstractModel
             throw $th;
         }
     }
+    public function getAll()
+    {
+        try {
+            $this->query = "
+            SELECT a.*, i.ruta_archivo, e.nombre AS especie_nombre, r.nombre AS raza_nombre
+            FROM animales a
+            LEFT JOIN imagenes_animales i ON a.id = i.animal_id AND i.es_principal = 1
+            JOIN especies e ON a.especie_id = e.id
+            JOIN razas r ON a.raza_id = r.id
+            ORDER BY a.fecha_ingreso DESC
+        ";
+            // Cargar parámetros
+            $this->get_results_from_query();
+            return $this->rows;
+        } catch (\Exception $e) {
+            $this->message   = 'Error al obtener animales: ' . $e->getMessage();
+            return [];
+        }
+    }
 }
