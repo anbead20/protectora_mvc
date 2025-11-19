@@ -29,7 +29,7 @@ try {
         "DBPORT"
     ])->notEmpty();
 } catch (Exception $e) {
-    die("Error cargando configuracion: " . $e->getMessage());
+    die("Error cargando configuración: " . $e->getMessage());
 }
 
 define('DB_HOST', $_ENV['DBHOST'] ?? 'localhost');
