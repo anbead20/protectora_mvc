@@ -20,7 +20,7 @@ class UsuarioController extends BaseController
 
         $data = ['usuarios' => $usuarios];
 
-        $this->renderHTML(__DIR__ . '/../../view/index_view_usuarios.php', $data);
+        $this->renderHTML(__DIR__ . '/../../view/usuarios_view.php', $data);
     }
 
     // Acción para mostrar un usuario por ID
@@ -31,7 +31,7 @@ class UsuarioController extends BaseController
 
         $usuario = $this->usuarioService->getUsuarioById((int)$id);
 
-        $this->renderHTML(__DIR__ . '/../../view/index_view_usuarios.php', [
+        $this->renderHTML(__DIR__ . '/../../view/usuarios_view.php', [
             'data' => ['usuarios' => [$usuario]]
         ]);
     }
@@ -41,7 +41,7 @@ class UsuarioController extends BaseController
     {
         $usuario = $this->usuarioService->createUsuario($request);
 
-        $this->renderHTML(__DIR__ . '/../../view/index_view_usuarios.php', [
+        $this->renderHTML(__DIR__ . '/../../view/usuarios_view.php', [
             'data' => [
                 'usuarios' => [$usuario],
                 'message' => 'Usuario creado correctamente'
@@ -57,7 +57,7 @@ class UsuarioController extends BaseController
 
         $usuario = $this->usuarioService->updateUsuario((int)$id, $request['data']);
 
-        $this->renderHTML(__DIR__ . '/../../view/index_view_usuarios.php', [
+        $this->renderHTML(__DIR__ . '/../../view/usuarios_view.php', [
             'data' => [
                 'usuarios' => [$usuario],
                 'message' => 'Usuario actualizado correctamente'
@@ -74,7 +74,7 @@ class UsuarioController extends BaseController
         $deleted = $this->usuarioService->deleteUsuario((int)$id);
         $message = $deleted ? 'Usuario eliminado correctamente' : 'Usuario no encontrado';
 
-        $this->renderHTML(__DIR__ . '/../../view/index_view_usuarios.php', [
+        $this->renderHTML(__DIR__ . '/../../view/usuarios_view.php', [
             'data' => [
                 'usuarios' => [],
                 'message' => $message

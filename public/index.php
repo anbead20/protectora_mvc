@@ -21,13 +21,13 @@ $router->add([
 ]);
 
 $router->add([
-    'name'   => 'animal_index',
+    'name'   => 'animales_view',
     'path'   => '/^animales\/?$/',
     'action' => [AnimalController::class, 'IndexAction']
 ]);
 
 $router->add([
-    'name'   => 'usuario_index',
+    'name'   => 'usuarios_view',
     'path'   => '/^usuarios\/?$/',
     'action' => [UsuarioController::class, 'IndexAction']
 ]);

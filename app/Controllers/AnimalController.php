@@ -22,7 +22,7 @@ class AnimalController extends BaseController
         $data = ['animals' => $animals];
 
         // Incluimos la vista (BaseController no hace extract)
-        $this->renderHTML(__DIR__ . '/../../view/index_view_animales.php', $data);
+        $this->renderHTML(__DIR__ . '/../../view/animales_view.php', $data);
     }
 
 
@@ -34,7 +34,7 @@ class AnimalController extends BaseController
 
         $animal = $this->animalService->getAnimalById((int)$id);
 
-        $this->renderHTML(__DIR__ . '/../../view/index_view_animales.php', [
+        $this->renderHTML(__DIR__ . '/../../view/animales_view.php', [
             'data' => ['animals' => [$animal]]
         ]);
     }
@@ -44,7 +44,7 @@ class AnimalController extends BaseController
     {
         $animal = $this->animalService->createAnimal($request);
 
-        $this->renderHTML(__DIR__ . '/../../view/index_view_animales.php', [
+        $this->renderHTML(__DIR__ . '/../../view/animales_view.php', [
             'data' => [
                 'animals' => [$animal],
                 'message' => 'Animal creado correctamente'
@@ -60,7 +60,7 @@ class AnimalController extends BaseController
 
         $animal = $this->animalService->updateAnimal((int)$id, $request['data']);
 
-        $this->renderHTML(__DIR__ . '/../../view/index_view_animales.php', [
+        $this->renderHTML(__DIR__ . '/../../view/animales_view.php', [
             'data' => [
                 'animals' => [$animal],
                 'message' => 'Animal actualizado correctamente'
@@ -77,7 +77,7 @@ class AnimalController extends BaseController
         $deleted = $this->animalService->deleteAnimal((int)$id);
         $message = $deleted ? 'Animal eliminado correctamente' : 'Animal no encontrado';
 
-        $this->renderHTML(__DIR__ . '/../../view/index_view_animales.php', [
+        $this->renderHTML(__DIR__ . '/../../view/animales_view.php', [
             'data' => [
                 'animals' => [],
                 'message' => $message
