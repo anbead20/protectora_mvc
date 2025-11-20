@@ -16,7 +16,14 @@ class AnimalService
     // Obtener todos los animales
     public function getAllAnimals()
     {
-        return $this->animalModel->getAll();
+        $animals = $this->animalModel->get();
+        foreach ($animals as &$animal) {
+            $fechaNacimiento = new \DateTime($animal['fechaNacimiento']);
+            $hoy = new \DateTime();
+            $edad = $hoy->diff($fechaNacimiento)->y;
+            $animal['edad'] = $edad;
+        }
+        return $animals;
     }
 
     // Buscar un animal por ID

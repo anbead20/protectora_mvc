@@ -15,8 +15,8 @@
                 <li>
                     ID: <?= htmlspecialchars($animal['id']) ?> |
                     Nombre: <?= htmlspecialchars($animal['nombre']) ?> |
-                    Raza: <?= htmlspecialchars($animal['raza']) ?> |
-                    Fecha Nacimiento: <?= htmlspecialchars($animal['fechaNacimiento']) ?>
+                    Raza: <?= htmlspecialchars($animal['raza']) ? htmlspecialchars($animal['raza']) : 'Sin raza' ?> |
+                    Edad: <?= htmlspecialchars($animal['edad']) ?> años
                 </li>
             <?php endforeach; ?>
         </ul>
