@@ -14,23 +14,21 @@ use App\Models\UsuarioModel;
 
 $router = new Router();
 
-// rutas animales
 $router->add([
-    'name'   => 'animal_index_default',
+    'name'   => 'index_default',
     'path'   => '/^\/?$/',   // raíz
     'action' => [UsuarioController::class, 'IndexAction']
 ]);
 
 $router->add([
     'name'   => 'animal_index',
-    'path'   => '/^\/animales\/?$/',
+    'path'   => '/^animales\/?$/',
     'action' => [AnimalController::class, 'IndexAction']
 ]);
 
-// rutas usuarios
 $router->add([
     'name'   => 'usuario_index',
-    'path'   => '/^\/usuarios\/?$/',
+    'path'   => '/^usuarios\/?$/',
     'action' => [UsuarioController::class, 'IndexAction']
 ]);
 
