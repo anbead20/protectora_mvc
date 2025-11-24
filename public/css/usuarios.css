@@ -1,0 +1,133 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #74b9ff, #a29bfe);
+  color: #2d3436;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom: 3px solid #0984e3;
+}
+
+.header h1 {
+  font-size: 2.2em;
+  color: #0984e3;
+}
+
+.header p {
+  font-size: 1.1em;
+  color: #636e72;
+}
+
+/* Contenedor de tabla */
+.table-container {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Tabla */
+table {
+  width: 80%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+thead {
+  background: #0984e3;
+  color: #fff;
+}
+
+thead th {
+  padding: 15px;
+  text-align: left;
+  font-size: 1em;
+}
+
+tbody tr {
+  border-bottom: 1px solid #dfe6e9;
+}
+
+tbody tr:hover {
+  background: #f1f2f6;
+}
+
+td {
+  padding: 12px;
+  font-size: 0.95em;
+}
+
+/* Botones de acción */
+.btn {
+  padding: 8px 15px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #fff;
+  font-size: 0.9em;
+  transition: background 0.3s ease;
+  margin: 0 5px;
+}
+
+.btn-edit {
+  background: #6c5ce7;
+}
+
+.btn-edit:hover {
+  background: #a29bfe;
+}
+
+.btn-delete {
+  background: #d63031;
+}
+
+.btn-delete:hover {
+  background: #ff7675;
+}
+
+/* Botón volver al inicio */
+.back-home {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.btn-home {
+  background: #0984e3;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #fff;
+  font-size: 1em;
+  transition: background 0.3s ease;
+}
+
+.btn-home:hover {
+  background: #74b9ff;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border-top: 3px solid #0984e3;
+  font-size: 0.9em;
+  color: #636e72;
+}

@@ -1,9 +1,13 @@
 <?php
 require_once __DIR__ . '/../app/bootstrap.php';
-require_once("../vendor/autoload.php");
-require_once("../app/Config/config.php");
+require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../app/Config/config.php';
 
 use App\Core\Router;
+
+// Controladores y servicios
+use App\Controllers\IndexController;
+
 use App\Controllers\AnimalController;
 use App\Services\AnimalService;
 use App\Models\AnimalModel;
@@ -16,8 +20,8 @@ $router = new Router();
 
 $router->add([
     'name'   => 'index_default',
-    'path'   => '/^\/?$/',   // raíz
-    'action' => [UsuarioController::class, 'IndexAction']
+    'path'   => '/^\/?$/',
+    'action' => [IndexController::class, 'IndexAction']
 ]);
 
 $router->add([
@@ -32,32 +36,36 @@ $router->add([
     'action' => [UsuarioController::class, 'IndexAction']
 ]);
 
-// aquí definimos $uri y $request
-$uri     = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+// Obtenemos la URI y normalizamos la petición
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $request = str_replace(DIRBASEURL, '', $uri);
 
+// Buscamos la ruta
 $route = $router->match($request);
 
 if ($route) {
     $controllerName = $route['action'][0];
     $actionName     = $route['action'][1];
 
-    // instanciamos según el controlador
+    // Instanciamos el controlador según corresponda
     if ($controllerName === AnimalController::class) {
-        $model     = new AnimalModel();
-        $service   = new AnimalService($model);
+        $model      = new AnimalModel();
+        $service    = new AnimalService($model);
         $controller = new $controllerName($service);
     } elseif ($controllerName === UsuarioController::class) {
-        $model     = new UsuarioModel();
-        $service   = new UsuarioService($model);
+        $model      = new UsuarioModel();
+        $service    = new UsuarioService($model);
         $controller = new $controllerName($service);
+    } elseif ($controllerName === IndexController::class) {
+        $controller = new $controllerName();
     }
 
-    if ($actionName === 'IndexAction') {
-        $controller->IndexAction();
-    } else {
+    // Ejecutamos la acción
+    if (method_exists($controller, $actionName)) {
         $controller->$actionName($request);
+    } else {
+        echo "Acción no encontrada";
     }
 } else {
-    echo "No route";
+    echo "Ruta no encontrada";
 }
