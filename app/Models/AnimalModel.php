@@ -143,7 +143,6 @@ class AnimalModel extends DAbstractModel
             $this->query = "
                 SELECT id, nombre, raza, fechaNacimiento
                 FROM mascotas
-                ORDER BY fechaNacimiento DESC
             ";
             $this->get_results_from_query();
             return $this->rows;

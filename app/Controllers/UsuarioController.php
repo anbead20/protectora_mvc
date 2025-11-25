@@ -3,26 +3,23 @@
 namespace App\Controllers;
 
 use App\Services\UsuarioService;
+use App\Models\UsuarioModel;
 
 class UsuarioController extends BaseController
 {
     private $usuarioService;
 
-    public function __construct(UsuarioService $usuarioService)
+    public function __construct()
     {
-        $this->usuarioService = $usuarioService;
+        $model = new UsuarioModel();
+        $this->usuarioService = new UsuarioService($model);
     }
 
-    // Acción para listar todos los usuarios
     public function IndexAction()
     {
         $usuarios = $this->usuarioService->getAllUsuarios();
-
-        $data = ['usuarios' => $usuarios];
-
-        $this->renderHTML(__DIR__ . '/../../view/usuarios_view.php', $data);
+        $this->renderHTML(__DIR__ . '/../../view/usuarios_view.php', ['usuarios' => $usuarios]);
     }
-
     // Acción para mostrar un usuario por ID
     public function ShowAction($request)
     {

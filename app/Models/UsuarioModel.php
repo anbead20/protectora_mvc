@@ -243,7 +243,6 @@ class UsuarioModel extends DAbstractModel
             $this->query = "
                 SELECT id, username, email, telefono, nombre, apellido, rol, created_at, ultimo_login
                 FROM usuarios
-                ORDER BY created_at DESC
             ";
             $this->get_results_from_query();
             return $this->rows;
@@ -251,19 +250,5 @@ class UsuarioModel extends DAbstractModel
             $this->message = 'Error al obtener usuarios: ' . $e->getMessage();
             return [];
         }
-    }
-
-    public function insert(array $data)
-    {
-        $this->setUsername($data['username']);
-        $this->setEmail($data['email']);
-        $this->setPassword($data['password']);
-        $this->setTelefono($data['telefono'] ?? '');
-        $this->setNombre($data['nombre'] ?? '');
-        $this->setApellido($data['apellido'] ?? '');
-        $this->setDireccion($data['direccion'] ?? '');
-        $this->setTipo('usuario');
-
-        return $this->set();
     }
 }

@@ -6,55 +6,39 @@ class Router
 {
     private $routes = [];
 
-    /**
-     * Añade una ruta al enrutador
-     *
-     * @param string $method GET, POST, etc.
-     * @param string $path   Expresión regular de la ruta
-     * @param array  $action [Controller::class, 'method']
-     */
-    public function add(string $method, string $path, array $action)
+    public function get(array $route)
     {
         $this->routes[] = [
-            'method' => strtoupper($method),
-            'path'   => $path,
-            'action' => $action
+            'name'   => $route['name'],
+            'path'   => $route['path'],
+            'action' => $route['action'],
+            'method' => 'GET'
         ];
     }
 
-    public function get(string $path, array $action)
+    public function post(array $route)
     {
-        $this->add('GET', $path, $action);
+        $this->routes[] = [
+            'name'   => $route['name'],
+            'path'   => $route['path'],
+            'action' => $route['action'],
+            'method' => 'POST'
+        ];
     }
 
-    public function post(string $path, array $action)
-    {
-        $this->add('POST', $path, $action);
-    }
-
-    /**
-     * Busca coincidencia entre la petición y las rutas registradas
-     *
-     * @param string $request URI
-     * @param string $method  Método HTTP
-     * @return array|null
-     */
     public function match(string $request, string $method)
     {
         foreach ($this->routes as $route) {
+            // Comprobamos método y expresión regular
             if (
-                $route['method'] === strtoupper($method) &&
+                strtoupper($method) === $route['method'] &&
                 preg_match($route['path'], $request, $matches)
             ) {
+                array_shift($matches); // quitamos coincidencia completa
                 $route['params'] = $matches;
                 return $route;
             }
         }
         return null;
-    }
-
-    public function getRoutes(): array
-    {
-        return $this->routes;
     }
 }

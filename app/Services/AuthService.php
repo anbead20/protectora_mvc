@@ -15,9 +15,15 @@ class AuthService
 
     public function register(array $data)
     {
-        if (empty($data['username']) || empty($data['email']) || empty($data['password'])) {
-            return false;
-        }
-        return $this->usuarioModel->insert($data);
+        $this->usuarioModel->setUsername($data['username']);
+        $this->usuarioModel->setEmail($data['email']);
+        $this->usuarioModel->setPassword($data['password']);
+        $this->usuarioModel->setTelefono($data['telefono'] ?? '');
+        $this->usuarioModel->setNombre($data['nombre'] ?? '');
+        $this->usuarioModel->setApellido($data['apellido'] ?? '');
+        $this->usuarioModel->setDireccion($data['direccion'] ?? '');
+        $this->usuarioModel->setTipo('usuario');
+
+        return $this->usuarioModel->set();
     }
 }

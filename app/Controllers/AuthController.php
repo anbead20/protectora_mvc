@@ -3,37 +3,42 @@
 namespace App\Controllers;
 
 use App\Services\AuthService;
+use App\Models\UsuarioModel;
 
 class AuthController extends BaseController
 {
-    private $authService;
-
-    public function __construct(AuthService $authService)
-    {
-        $this->authService = $authService;
-    }
-
     public function showRegisterFormAction()
     {
-        $this->renderHTML(__DIR__ . '/../../view/register_view.php');
+        $this->renderHTML(__DIR__ . '/../../view/auth/register_view.php');
     }
 
     public function procesarRegisterFormAction()
     {
-        $data = [
-            'username' => $_POST['username'] ?? '',
-            'email'    => $_POST['email'] ?? '',
-            'password' => $_POST['password'] ?? ''
-        ];
-
-        if ($this->authService->register($data)) {
-            $mensaje = "Usuario registrado correctamente";
-        } else {
-            $mensaje = "Error: faltan datos o no se pudo registrar";
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header("Location: " . DIRBASEURL . "/auth/register?error=invalid_method");
+            exit;
         }
 
-        $this->renderHTML(__DIR__ . '/../../view/register_view.php', [
-            'message' => $mensaje
-        ]);
+        $model = new UsuarioModel();
+        $authService = new AuthService($model);
+
+        try {
+            $authService->register([
+                'username' => $_POST['username'] ?? '',
+                'email'    => $_POST['email'] ?? '',
+                'telefono' => $_POST['telefono'] ?? '',
+                'password' => $_POST['password'] ?? '',
+                'nombre'   => $_POST['nombre'] ?? '',
+                'apellido' => $_POST['apellido'] ?? '',
+                'direccion' => $_POST['direccion'] ?? '',
+                'rol'      => $_POST['rol'] ?? 'empleado'
+            ]);
+
+            header("Location: " . DIRBASEURL . "/auth/login?success=registered");
+            exit;
+        } catch (\Exception $e) {
+            header("Location: " . DIRBASEURL . "/auth/register?error=" . urlencode($e->getMessage()));
+            exit;
+        }
     }
 }

@@ -3,26 +3,22 @@
 namespace App\Controllers;
 
 use App\Services\AnimalService;
+use App\Models\AnimalModel;
 
 class AnimalController extends BaseController
 {
     private $animalService;
 
-    public function __construct(AnimalService $animalService)
+    public function __construct()
     {
-        $this->animalService = $animalService;
+        $model = new AnimalModel();
+        $this->animalService = new AnimalService($model);
     }
 
-    // Acción para listar todos los animales
     public function IndexAction()
     {
         $animals = $this->animalService->getAllAnimals();
-
-        // Definimos $data como variable local
-        $data = ['animals' => $animals];
-
-        // Incluimos la vista (BaseController no hace extract)
-        $this->renderHTML(__DIR__ . '/../../view/animales_view.php', $data);
+        $this->renderHTML(__DIR__ . '/../../view/animales_view.php', ['animals' => $animals]);
     }
 
 
