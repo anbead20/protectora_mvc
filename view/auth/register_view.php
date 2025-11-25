@@ -14,7 +14,7 @@
         <p style="color:green"><?= htmlspecialchars($message) ?></p>
     <?php endif; ?>
 
-    <form method="POST" action="<?= DIRBASEURL ?>auth/register">
+    <form method="POST" action="<?= DIRBASEURL ?>/auth/register">
         <label for="username">Usuario:</label>
         <input type="text" name="username" id="username" required><br><br>
 

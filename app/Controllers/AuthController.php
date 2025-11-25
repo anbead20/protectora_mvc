@@ -34,7 +34,7 @@ class AuthController extends BaseController
                 'rol'      => $_POST['rol'] ?? 'empleado'
             ]);
 
-            header("Location: " . DIRBASEURL . "/auth/login?success=registered");
+            header("Location: " . DIRBASEURL . "/auth/register?success=registered");
             exit;
         } catch (\Exception $e) {
             header("Location: " . DIRBASEURL . "/auth/register?error=" . urlencode($e->getMessage()));
