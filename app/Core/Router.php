@@ -9,24 +9,43 @@ class Router
     /**
      * Añade una ruta al enrutador
      *
-     * @param array $route
+     * @param string $method GET, POST, etc.
+     * @param string $path   Expresión regular de la ruta
+     * @param array  $action [Controller::class, 'method']
      */
-    public function add(array $route)
+    public function add(string $method, string $path, array $action)
     {
-        $this->routes[] = $route;
+        $this->routes[] = [
+            'method' => strtoupper($method),
+            'path'   => $path,
+            'action' => $action
+        ];
+    }
+
+    public function get(string $path, array $action)
+    {
+        $this->add('GET', $path, $action);
+    }
+
+    public function post(string $path, array $action)
+    {
+        $this->add('POST', $path, $action);
     }
 
     /**
      * Busca coincidencia entre la petición y las rutas registradas
      *
-     * @param string $request
+     * @param string $request URI
+     * @param string $method  Método HTTP
      * @return array|null
      */
-    public function match(string $request)
+    public function match(string $request, string $method)
     {
         foreach ($this->routes as $route) {
-            if (preg_match($route['path'], $request, $matches)) {
-                // Guardamos los parámetros capturados en la ruta
+            if (
+                $route['method'] === strtoupper($method) &&
+                preg_match($route['path'], $request, $matches)
+            ) {
                 $route['params'] = $matches;
                 return $route;
             }
@@ -34,11 +53,6 @@ class Router
         return null;
     }
 
-    /**
-     * Devuelve todas las rutas registradas (opcional)
-     *
-     * @return array
-     */
     public function getRoutes(): array
     {
         return $this->routes;

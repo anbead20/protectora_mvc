@@ -252,4 +252,18 @@ class UsuarioModel extends DAbstractModel
             return [];
         }
     }
+
+    public function insert(array $data)
+    {
+        $this->setUsername($data['username']);
+        $this->setEmail($data['email']);
+        $this->setPassword($data['password']);
+        $this->setTelefono($data['telefono'] ?? '');
+        $this->setNombre($data['nombre'] ?? '');
+        $this->setApellido($data['apellido'] ?? '');
+        $this->setDireccion($data['direccion'] ?? '');
+        $this->setTipo('usuario');
+
+        return $this->set();
+    }
 }
