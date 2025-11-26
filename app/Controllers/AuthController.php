@@ -31,7 +31,8 @@ class AuthController extends BaseController
                 'nombre'   => $_POST['nombre'] ?? '',
                 'apellido' => $_POST['apellido'] ?? '',
                 'direccion' => $_POST['direccion'] ?? '',
-                'rol'      => $_POST['rol'] ?? 'empleado'
+                'rol'      => $_POST['rol'] ?? 'usuario',
+                'ultimo_login' => $_POST['ultimo_login']
             ]);
 
             header("Location: " . DIRBASEURL . "/auth/register?success=registered");

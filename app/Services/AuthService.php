@@ -22,7 +22,8 @@ class AuthService
         $this->usuarioModel->setNombre($data['nombre'] ?? '');
         $this->usuarioModel->setApellido($data['apellido'] ?? '');
         $this->usuarioModel->setDireccion($data['direccion'] ?? '');
-        $this->usuarioModel->setTipo('usuario');
+        $this->usuarioModel->setTipo($data['rol'] ?? 'usuario');
+        $this->usuarioModel->setUltimoLogin($data['ultimo_login']);
 
         return $this->usuarioModel->set();
     }
