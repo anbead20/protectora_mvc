@@ -47,7 +47,6 @@
                 <option value="usuario" selected>Usuario</option>
             </select>
 
-
             <button type="submit">Registrarse</button>
         </form>
     </div>
