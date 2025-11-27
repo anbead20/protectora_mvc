@@ -1,18 +1,18 @@
 <?php
 
-/**
- * @package App\Bootstrap
- */
-
 // Definir constantes de rutas principales en el sistema de archivos. No en host (http)
-
 define('APP_ROOT', realpath(__DIR__ . '/..'));
 define('APP_DIR', APP_ROOT . '/app');
-define('PUBLIC_DIR', APP_ROOT . '/public');
+// define('PUBLIC_DIR', APP_ROOT . '/public');
 define('CONFIG_DIR', APP_ROOT . '/config');
 define('VENDOR_DIR', APP_ROOT . '/vendor');
 define('TMP_DIR', APP_ROOT . '/tmp');
 
+// Detectar la URL base de la aplicación (para usar en vistas)
+$scriptName = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
+define('DIRBASEURL', rtrim($scriptName, '/'));
+
+// Autoload
 require_once VENDOR_DIR . "/autoload.php";
 
 use Dotenv\Dotenv;
