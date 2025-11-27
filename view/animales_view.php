@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista de Animales - Adrián Anta Bellido</title>
-    <link rel="stylesheet" href="../public/css/animales.css">
+    <link rel="stylesheet" href="<?= DIRBASEURL ?>/css/animales.css?v=<?= time() ?>">
 </head>
 
 <body>
@@ -22,6 +22,7 @@
                         <th>Nombre</th>
                         <th>Raza</th>
                         <th>Edad</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,6 +32,15 @@
                             <td><?= htmlspecialchars($animal['nombre']) ?></td>
                             <td><?= $animal['raza'] ? htmlspecialchars($animal['raza']) : 'Sin raza' ?></td>
                             <td><?= htmlspecialchars($animal['edad']) ?> años</td>
+                            <td>
+                                <a href="<?= DIRBASEURL ?>/animales/editar/<?= $animal['id'] ?>" class="btn btn-edit">Editar</a>
+                                <form method="POST" action="<?= DIRBASEURL ?>/animales/eliminar/<?= $animal['id'] ?>" style="display:inline;">
+                                    <button type="submit" class="btn btn-delete"
+                                        onclick="return confirm('¿Seguro que quieres eliminar este animal?')">
+                                        Eliminar
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -39,7 +49,6 @@
             <p>No hay animales registrados.</p>
         <?php endif; ?>
 
-        <!-- Botón para volver al inicio -->
         <div class="back-home">
             <a href="<?= DIRBASEURL ?>" class="btn btn-home">⬅ Volver al inicio</a>
         </div>
