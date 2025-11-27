@@ -17,11 +17,9 @@
         <div class="menu">
             <a href="animales" class="card">
                 <h2>Gestión de Animales</h2>
-                <p>Registrar, editar y ver mascotas</p>
             </a>
             <a href="usuarios" class="card">
                 <h2>Gestión de Usuarios</h2>
-                <p>Administrar usuarios registrados</p>
             </a>
         </div>
     </main>

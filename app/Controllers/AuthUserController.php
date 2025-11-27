@@ -2,25 +2,25 @@
 
 namespace App\Controllers;
 
-use App\Services\AuthService;
+use App\Services\AuthUserService;
 use App\Models\UsuarioModel;
 
-class AuthController extends BaseController
+class AuthUserController extends BaseController
 {
     public function showRegisterFormAction()
     {
-        $this->renderHTML(__DIR__ . '/../../view/auth/register_view.php');
+        $this->renderHTML(__DIR__ . '/../../view/auth/register_user_view.php');
     }
 
     public function procesarRegisterFormAction()
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header("Location: " . DIRBASEURL . "/auth/register?error=invalid_method");
+            header("Location: " . DIRBASEURL . "/auth/user/register?error=invalid_method");
             exit;
         }
 
         $model = new UsuarioModel();
-        $authService = new AuthService($model);
+        $authService = new AuthUserService($model);
 
         try {
             $authService->register([
@@ -35,10 +35,10 @@ class AuthController extends BaseController
                 'ultimo_login' => $_POST['ultimo_login']
             ]);
 
-            header("Location: " . DIRBASEURL . "/auth/register?success=registered");
+            header("Location: " . DIRBASEURL . "/auth/user/register?success=registered");
             exit;
         } catch (\Exception $e) {
-            header("Location: " . DIRBASEURL . "/auth/register?error=" . urlencode($e->getMessage()));
+            header("Location: " . DIRBASEURL . "/auth/user/register?error=" . urlencode($e->getMessage()));
             exit;
         }
     }

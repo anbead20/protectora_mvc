@@ -8,7 +8,8 @@ use App\Core\Router;
 use App\Controllers\IndexController;
 use App\Controllers\AnimalController;
 use App\Controllers\UsuarioController;
-use App\Controllers\AuthController;
+use App\Controllers\AuthUserController;
+use App\Controllers\AuthAnimalController;
 
 $router = new Router();
 
@@ -34,16 +35,30 @@ $router->get([
 ]);
 
 $router->get([
-    'name' => 'register_form',
-    'path' => '/^\/auth\/register\/?$/',
-    'action' => [AuthController::class, 'showRegisterFormAction'],
+    'name' => 'register_user_form',
+    'path' => '/^\/auth\/user\/register\/?$/',
+    'action' => [AuthUserController::class, 'showRegisterFormAction'],
     'method' => 'GET'
 ]);
 
 $router->post([
-    'name' => 'register',
-    'path' => '/^\/auth\/register\/?$/',
-    'action' => [AuthController::class, 'procesarRegisterFormAction'],
+    'name' => 'register_user',
+    'path' => '/^\/auth\/user\/register\/?$/',
+    'action' => [AuthUserController::class, 'procesarRegisterFormAction'],
+    'method' => 'POST'
+]);
+
+$router->get([
+    'name' => 'register_animal_form',
+    'path' => '/^\/auth\/animal\/register\/?$/',
+    'action' => [AuthAnimalController::class, 'showRegisterFormAction'],
+    'method' => 'GET'
+]);
+
+$router->post([
+    'name' => 'register_animal',
+    'path' => '/^\/auth\/animal\/register\/?$/',
+    'action' => [AuthAnimalController::class, 'procesarRegisterFormAction'],
     'method' => 'POST'
 ]);
 

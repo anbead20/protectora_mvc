@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Registro de usuario</title>
-    <link rel="stylesheet" href="../../public/css/register.css">
+    <link rel="stylesheet" href="<?= DIRBASEURL ?>/css/register.css">
 </head>
 
 <body>
@@ -17,7 +17,7 @@
             <p style="color:green">Usuario registrado correctamente</p>
         <?php endif; ?>
 
-        <form method="POST" action="<?= DIRBASEURL ?>/auth/register">
+        <form method="POST" action="<?= DIRBASEURL ?>/auth/user/register">
             <label for="username">Usuario:</label>
             <input type="text" name="username" id="username" required>
 

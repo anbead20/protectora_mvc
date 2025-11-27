@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Models\UsuarioModel;
 
-class AuthService
+class AuthUserService
 {
     public $usuarioModel;
 
