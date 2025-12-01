@@ -69,8 +69,8 @@ class AnimalModel extends DAbstractModel
             $this->query = "INSERT INTO mascotas (nombre, raza, fechaNacimiento) VALUES (:nombre, :raza, :fechaNacimiento)";
             $this->params = [
                 ':nombre' => $this->nombre,
-                ':raza'   => $this->raza,
-                ':fechaNacimiento'  => $this->fechaNacimiento ?: date('Y-m-d') // Si no se ha definido fecha, se asigna la fecha actual
+                ':raza' => $this->raza,
+                ':fechaNacimiento' => $this->fechaNacimiento ?: date('Y-m-d') // Si no se ha definido fecha, se asigna la fecha actual
             ];
 
             $this->execute_single_query();
