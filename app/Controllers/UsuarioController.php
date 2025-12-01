@@ -18,8 +18,12 @@ class UsuarioController extends BaseController
     public function IndexAction()
     {
         $usuarios = $this->usuarioService->getAllUsuarios();
-        $this->renderHTML(__DIR__ . '/../../view/usuarios_view.php', ['usuarios' => $usuarios]);
+        $this->renderHTML(__DIR__ . '/../../view/usuarios_view.php', [
+            'usuarios' => $usuarios,
+            'title' => 'Lista de Usuarios'
+        ]);
     }
+
     // Acción para mostrar un usuario por ID
     public function ShowAction($request)
     {

@@ -6,6 +6,6 @@ class IndexController extends BaseController
 {
     public function IndexAction()
     {
-        $this->renderHTML(__DIR__ . '/../../view/index_view.php');
+        $this->renderHTML(__DIR__ . '/../../view/inicio/index_view.php');
     }
 }

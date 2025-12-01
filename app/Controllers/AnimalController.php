@@ -18,9 +18,11 @@ class AnimalController extends BaseController
     public function IndexAction()
     {
         $animals = $this->animalService->getAllAnimals();
-        $this->renderHTML(__DIR__ . '/../../view/animales_view.php', ['animals' => $animals]);
+        $this->renderHTML(__DIR__ . '/../../view/animales_view.php', [
+            'animals' => $animals,
+            'title' => 'Lista de Animales'
+        ]);
     }
-
 
     // Acción para mostrar un animal por ID
     public function ShowAction($request)

@@ -1,35 +1,32 @@
-<!DOCTYPE html>
-<html lang="es">
+<div class="mb-4">
+    <h2 class="fw-bold">Registro de animal</h2>
+</div>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Registro de animal</title>
-    <link rel="stylesheet" href="<?= DIRBASEURL ?>/css/register.css">
-</head>
+<?php if (!empty($_GET['error'])): ?>
+    <div class="alert alert-danger"><?= htmlspecialchars($_GET['error']) ?></div>
+<?php elseif (!empty($_GET['success'])): ?>
+    <div class="alert alert-success">Animal registrado correctamente</div>
+<?php endif; ?>
 
-<body>
-    <div class="form-container">
-        <h2>Registro de animal</h2>
-
-        <?php if (!empty($_GET['error'])): ?>
-            <p style="color:red"><?= htmlspecialchars($_GET['error']) ?></p>
-        <?php elseif (!empty($_GET['success'])): ?>
-            <p style="color:green">Animal registrado correctamente</p>
-        <?php endif; ?>
-
-        <form method="POST" action="<?= DIRBASEURL ?>/auth/animal/register">
-            <label for="nombre">Nombre:</label>
-            <input type="text" name="nombre" id="nombre" required>
-
-            <label for="raza">Raza:</label>
-            <input type="text" name="raza" id="raza">
-
-            <label for="fechaNacimiento">Fecha de nacimiento:</label>
-            <input type="date" name="fechaNacimiento" id="fechaNacimiento" style="width:100%; padding:12px; margin-bottom:20px; border:1px solid #ccc; border-radius:6px; font-size:14px;" required>
-
-            <button type="submit">Registrar animal</button>
-        </form>
+<form method="POST" action="<?= DIRBASEURL ?>/auth/animal/register" class="bg-white p-4 rounded shadow-sm">
+    <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" name="nombre" id="nombre" class="form-control" required>
     </div>
-</body>
 
-</html>
+    <div class="mb-3">
+        <label for="raza" class="form-label">Raza</label>
+        <input type="text" name="raza" id="raza" class="form-control">
+    </div>
+
+    <div class="mb-3">
+        <label for="fechaNacimiento" class="form-label">Fecha de nacimiento</label>
+        <input type="date" name="fechaNacimiento" id="fechaNacimiento" class="form-control" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Registrar animal</button>
+</form>
+
+<div class="mt-4">
+    <a href="<?= DIRBASEURL ?>" class="btn btn-secondary">⬅ Volver al inicio</a>
+</div>
