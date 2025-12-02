@@ -55,9 +55,9 @@
             </select>
         </div>
     </div>
-
-    <div class="mt-4">
-        <button type="submit" class="btn btn-primary">Registrarse</button>
-        <a href="<?= DIRBASEURL ?>" class="btn btn-secondary ms-2">⬅ Volver al inicio</a>
-    </div>
+    <button type="submit" class="btn btn-primary mt-4">Registrar usuario</button>
 </form>
+
+<div class="mt-4">
+    <a href="<?= DIRBASEURL ?>" class="btn btn-secondary ms-2">⬅ Volver al inicio</a>
+</div>
