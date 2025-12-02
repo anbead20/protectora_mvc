@@ -1,5 +1,9 @@
 <?php
 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 // Definir constantes de rutas principales en el sistema de archivos. No en host (http)
 define('APP_ROOT', realpath(__DIR__ . '/..'));
 define('APP_DIR', APP_ROOT . '/app');

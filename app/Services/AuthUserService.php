@@ -27,4 +27,19 @@ class AuthUserService
 
         return $this->usuarioModel->set();
     }
+
+    public function login(array $data)
+    {
+        $user = $this->usuarioModel->getByUsername($data['username']);
+
+        if (!$user) {
+            throw new \Exception("Usuario no encontrado");
+        }
+
+        if (!password_verify($data['password'], $user['password'])) {
+            throw new \Exception("Contraseña incorrecta");
+        }
+
+        return $user;
+    }
 }

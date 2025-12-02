@@ -251,4 +251,17 @@ class UsuarioModel extends DAbstractModel
             return [];
         }
     }
+
+    public function getByUsername($username)
+    {
+        try {
+            $this->query = "SELECT * FROM usuarios WHERE username = :username";
+            $this->params = [':username' => $username];
+            $this->get_results_from_query();
+            return $this->rows[0] ?? null;
+        } catch (\Exception $e) {
+            $this->message = 'Error al obtener usuario por username: ' . $e->getMessage();
+            return null;
+        }
+    }
 }

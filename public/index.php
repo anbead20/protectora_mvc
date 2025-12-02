@@ -62,6 +62,34 @@ $router->post([
     'method' => 'POST'
 ]);
 
+$router->get([
+    'name' => 'login_form',
+    'path' => '/^\/auth\/user\/login\/?$/',
+    'action' => [AuthUserController::class, 'showLoginFormAction'],
+    'method' => 'GET'
+]);
+
+$router->post([
+    'name' => 'iniciar_sesion',
+    'path' => '/^\/auth\/user\/login\/?$/',
+    'action' => [AuthUserController::class, 'loginAction'],
+    'method' => 'POST'
+]);
+
+$router->get([
+    'name' => 'logout_form',
+    'path' => '/^\/auth\/user\/logout\/?$/',
+    'action' => [AuthUserController::class, 'showLogoutAction'],
+    'method' => 'GET'
+]);
+
+$router->post([
+    'name' => 'cerrar_sesion',
+    'path' => '/^\/auth\/user\/logout\/?$/',
+    'action' => [AuthUserController::class, 'logoutAction'],
+    'method' => 'POST'
+]);
+
 // Obtenemos la URI y normalizamos la petición
 $uri     = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $request = str_replace(DIRBASEURL, '', $uri);
