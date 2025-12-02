@@ -26,7 +26,7 @@ class AuthAnimalController extends BaseController
             $authService->register([
                 'nombre' => $_POST['nombre'] ?? '',
                 'raza'   => $_POST['raza'] ?? '',
-                'fecha_nacimiento' => $_POST['fecha_nacimiento'] ?? ''
+                'fechaNacimiento' => $_POST['fechaNacimiento'] ?? null
             ]);
 
             header("Location: " . DIRBASEURL . "/auth/animal/register?success=registered");

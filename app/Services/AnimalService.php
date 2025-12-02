@@ -18,10 +18,14 @@ class AnimalService
     {
         $animals = $this->animalModel->get();
         foreach ($animals as &$animal) {
-            $fechaNacimiento = new \DateTime($animal['fechaNacimiento']);
-            $hoy = new \DateTime();
-            $edad = $hoy->diff($fechaNacimiento)->y;
-            $animal['edad'] = $edad;
+            if (!empty($animal['fechaNacimiento'])) {
+                $fechaNacimiento = new \DateTime($animal['fechaNacimiento']);
+                $hoy = new \DateTime();
+                $edad = $fechaNacimiento->diff($hoy)->y;
+                $animal['edad'] = $edad;
+            } else {
+                $animal['edad'] = 'Edad desconocida';
+            }
         }
         return $animals;
     }

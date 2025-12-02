@@ -17,7 +17,7 @@ class AuthAnimalService
     {
         $this->animalModel->setNombre($data['nombre'] ?? '');
         $this->animalModel->setRaza($data['raza'] ?? '');
-        $this->animalModel->setFecha($data['fecha_nacimiento'] ?? '');
+        $this->animalModel->setFecha($data['fechaNacimiento'] ?? '');
 
         return $this->animalModel->set();
     }
