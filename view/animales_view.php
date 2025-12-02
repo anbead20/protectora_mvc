@@ -18,10 +18,10 @@
             <tbody>
                 <?php foreach ($data['animals'] as $animal): ?>
                     <tr>
-                        <td><?= htmlspecialchars($animal['id']) ?></td>
-                        <td><?= htmlspecialchars($animal['nombre']) ?></td>
-                        <td><?= $animal['raza'] ? htmlspecialchars($animal['raza']) : 'Sin raza' ?></td>
-                        <td><?= htmlspecialchars($animal['edad']) ?> años</td>
+                        <td><?= clearData($animal['id']) ?></td>
+                        <td><?= clearData($animal['nombre']) ?></td>
+                        <td><?= $animal['raza'] ? clearData($animal['raza']) : 'Sin raza' ?></td>
+                        <td><?= clearData($animal['edad']) ?> años</td>
                         <td>
                             <a href="<?= DIRBASEURL ?>/animales/editar/<?= $animal['id'] ?>" class="btn btn-sm btn-outline-primary me-2">Editar</a>
                             <form method="POST" action="<?= DIRBASEURL ?>/animales/eliminar/<?= $animal['id'] ?>" class="d-inline">

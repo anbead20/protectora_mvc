@@ -3,7 +3,7 @@
 </div>
 
 <?php if (!empty($_GET['error'])): ?>
-    <div class="alert alert-danger"><?= htmlspecialchars($_GET['error']) ?></div>
+    <div class="alert alert-danger"><?= clearData($_GET['error']) ?></div>
 <?php elseif (!empty($_GET['success'])): ?>
     <div class="alert alert-success">Usuario registrado correctamente</div>
 <?php endif; ?>

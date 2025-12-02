@@ -20,13 +20,13 @@
             <tbody>
                 <?php foreach ($data['usuarios'] as $usuario): ?>
                     <tr>
-                        <td><?= htmlspecialchars($usuario['id']) ?></td>
-                        <td><?= htmlspecialchars($usuario['username']) ?></td>
-                        <td><?= htmlspecialchars($usuario['email']) ?></td>
-                        <td><?= htmlspecialchars($usuario['telefono']) ?></td>
-                        <td><?= htmlspecialchars($usuario['nombre']) ?> <?= htmlspecialchars($usuario['apellido']) ?></td>
-                        <td><?= htmlspecialchars($usuario['rol']) ?></td>
-                        <td><?= $usuario['ultimo_login'] ? htmlspecialchars($usuario['ultimo_login']) : 'Nunca' ?></td>
+                        <td><?= clearData($usuario['id']) ?></td>
+                        <td><?= clearData($usuario['username']) ?></td>
+                        <td><?= clearData($usuario['email']) ?></td>
+                        <td><?= clearData($usuario['telefono']) ?></td>
+                        <td><?= clearData($usuario['nombre']) ?> <?= clearData($usuario['apellido']) ?></td>
+                        <td><?= clearData($usuario['rol']) ?></td>
+                        <td><?= $usuario['ultimo_login'] ? clearData($usuario['ultimo_login']) : 'Nunca' ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -38,7 +38,7 @@
 
 <?php if (!empty($data['message'])): ?>
     <div class="alert alert-info mt-3">
-        <strong><?= htmlspecialchars($data['message']) ?></strong>
+        <strong><?= clearData($data['message']) ?></strong>
     </div>
 <?php endif; ?>
 

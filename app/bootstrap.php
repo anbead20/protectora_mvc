@@ -15,6 +15,9 @@ define('DIRBASEURL', rtrim($scriptName, '/'));
 // Autoload
 require_once VENDOR_DIR . "/autoload.php";
 
+// Funcion clearData
+require_once __DIR__ . "/Core/functions.php";
+
 use Dotenv\Dotenv;
 
 try {
